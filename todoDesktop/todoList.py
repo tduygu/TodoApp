@@ -9,7 +9,7 @@ if not os.path.exists("../files/todos.txt"):
 
 sg.theme("DarkPurple3")
 
-lbl_time = sg.Text('', key="lbl_clock")
+lbl_time = sg.Text('', key="lblClock")
 lbl_todo = sg.Text("Type in a to-do")
 txt_todo = sg.InputText("Enter todo", key="txtTodo")
 btn_add = sg.Button("Add", key="btnAdd")
@@ -27,6 +27,21 @@ window = sg.Window("My To-Do App",
                        [btn_exit]
                    ], font=("Helvetica", 20))
 
-event = window.read()
-print(event)
+# event = window.read()
+# print(event)
+##############################
+# event, values = window.read()
+# print(event)
+# print(values)
+##############################
+
+while True:
+    event, values = window.read(timeout=200)
+    if event != sg.WIN_CLOSED:
+        window["lblClock"].update(value=time.strftime("%b %d, %Y %H:%M:%S"))
+
+    match event:
+        case sg.WIN_CLOSED:
+            break
+
 
