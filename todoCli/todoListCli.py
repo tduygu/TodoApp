@@ -39,7 +39,25 @@ while True:
         except IndexError:
             print("There is no item with that number.")
             continue
+    elif user_action.startswith('complete'):
+        try:
+            num = user_action[9:]
+            if num.isdigit():
+                index = int(num) - 1
+            else:
+                continue
 
+            todos = functions.get_todos(FILE_PATH_NAME)
+            todo_to_remove = todos[index].strip('\n')
+            todos.pop(index)
+            functions.write_todos(todos,FILE_PATH_NAME)
+            print(f"{todo_to_remove} is removed.")
+        except ValueError:
+            print("Invalid command")
+            continue
+        except IndexError:
+            print("There is no item with that number.")
+            continue
     elif user_action.startswith("exit"):
         break
     else:
