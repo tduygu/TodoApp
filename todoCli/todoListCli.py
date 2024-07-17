@@ -1,3 +1,4 @@
+import functions
 from functions import get_todos, write_todos
 import time
 
@@ -15,6 +16,30 @@ while True:
         todos = get_todos(FILE_PATH_NAME)
         todos.append(todo)
         write_todos(filepath=FILE_PATH_NAME, todos_list=todos)
+    elif user_action.startswith("show"):
+        todos = get_todos(FILE_PATH_NAME)
+        for ind, item in enumerate(todos):
+            item = item.strip('\n')
+            print(ind+1, item)
+    elif user_action.startswith("edit"):
+        try:
+            num = user_action[5:]
+            if num.isdigit():
+                no = int(num) -1
+            else:
+                continue
+
+            todos = get_todos(FILE_PATH_NAME)
+            new_value = input(f"Provide the new value for {todos[no]}")
+            todos[no] = new_value + '\n'
+            functions.write_todos(filepath=FILE_PATH_NAME,todos_list=todos)
+        except ValueError:
+            print("Invalid command")
+            continue
+        except IndexError:
+            print("There is no item with that number.")
+            continue
+
     elif user_action.startswith("exit"):
         break
     else:
