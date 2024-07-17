@@ -9,7 +9,7 @@ if not os.path.exists(FILE_PATH_NAME):
     with open("../files/todos.txt", "w") as file:
         pass
 
-sg.theme("DarkPurple3")
+sg.theme("DarkBlue4")
 
 lbl_time = sg.Text('', key="lblClock")
 lbl_todo = sg.Text("Type in a to-do")
@@ -57,6 +57,7 @@ while True:
             window["txtTodo"].update(value=values['lstTodos'][0].replace('\n',''))
         case "Update":
             try:
+                todos = functions.get_todos(FILE_PATH_NAME)
                 todo_to_edit = values['lstTodos'][0]
                 new_todo = values['txtTodo'] + "\n"
                 n = todos.index(todo_to_edit)
